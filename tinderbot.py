@@ -26,15 +26,7 @@ from selenium.common.exceptions import ElementClickInterceptedException
 
 
 
-
-
-
-
 # profile_info
-
-
-
-
 ig_flags = ["instagram", "ig", "@", "Instagram", "insta", "ista", "ig:" ]
 flags = ["onlyfans", "snapchat", "1.5", "15", "1,5", "gatito", "😼", "😻"] #this is dumb but I'm allergic to cats, and being 185 I gotta draw a line somewhere in terms of height.
 name = ''
@@ -60,26 +52,13 @@ class TinderBot():
         accedi.click()
         # data-testid="appLoginBtn
         sleep(1)
-        # fb = bot.driver.find_element_by_xpath('//*[@id="s-225515700"]/div/div/div[1]/div/div[3]/span/div[2]/button')
+        
         fb = bot.driver.find_element('css selector', 'button[data-testid="login"]')
 
-        # fb = bot.driver.find_element_by_xpath('//*[@id="s-225515700"]/div/div/div[1]/div/div[3]/span/div[2]/button')
         fb.click()
-        # <button aria-label="Accedi con Facebook" data-testid="login" type="button" 
-        # class="button Lts($ls-s) Z(0) CenterAlign Mx(a) Pos(r) Cur(p) Tt(u) Bdrs(100px) Px(48px) Px(40px)--s Py(0) Mih(54px) 
-        # button--outline Bdw(2px) Bds(s) Trsdu($fast) Bdc($c-secondary) C($c-secondary) Bdc($c-base):h C($c-base):h Bdc($c-base):f 
-        # C($c-base):f Bdc($c-base):a C($c-base):a Fw($semibold) focus-button-style W(100%) Maw(315px)--s Mb(20px)--ml" draggable="false">
-        # <span class="Pos(a) Start(16px) Z(1) Sq(16px)--s Sq(24px)--ml"><img alt="" 
-        # class="Va(tt) Expand" role="presentation" src="/static/build/607412d0d342547e47e3935a57b79940.svg" height="16" width="16">
-        # </span><span class="Pos(r) Z(1) D(ib)">Accedi con Facebook</span></button>
-        
-
-
-
+       
 #OPEN TINDER PROFILE TO INVESTIGATE
     def open_info2(self):
-        # element = self.driver.find_element('css selector', '[data-testid="recsCard#1"]')
-        # element.click()
         try:
             self.driver.find_element_by_xpath('//*[@id="s1502865376"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div/div[3]/div[3]/button').click()
             print("mouseclick method")
@@ -87,26 +66,9 @@ class TinderBot():
             self.driver.find_element('css selector','body').send_keys(Keys.ARROW_UP)
             print("keyboard method")
 
-
-# class="P(0) Trsdu($normal) Sq(28px) Bdrs(50%) Cur(p) Ta(c) Scale(1.2):h Mb(12px)--ml Mb(8px) focus-button-style"
-
-#             self.driver.find_element('css selector','button[class="P(0) Trsdu($normal) Sq(28px) Bdrs(50%) Cur(p) Ta(c) Scale(1.2):h Mb(12px)--ml Mb(8px) focus-button-style"').click()
-
-
     def open_info(self):
-        # element = self.driver.find_element('css selector', '[data-testid="recsCard#1"]')
-        #bot.self.driver.find_element('css selector', '[class="P(0) Trsdu($normal) Sq(28px) Bdrs(50%) Cur(p) Ta(c) Scale(1.2):h Mb(12px)--ml Mb(8px) focus-button-style"]')
         self.driver.execute_script('document.querySelector(\'[data-testid="recCard_info"] + button\').click()')
         print("greyblue method")
-
-        # class="P(0) Trsdu($normal) Sq(28px) Bdrs(50%) Cur(p) Ta(c) Scale(1.2):h Mb(12px)--ml Mb(8px) focus-button-style"
-        # # element.click()
-        # self.driver.find_element_by_xpath('//*[@id="s1502865376"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div/div[3]/div[3]/button').click()
-        # print("mouseclick method (no keyboard allowed)")
-        # except:
-        #     self.driver.find_element('css selector','body').send_keys(Keys.ARROW_UP)
-        #     print("keyboard method")
-
 
 #PROFILE ABOVE CERTAIN AGE HAVE AGE/2 % CHANCES OF CONTINUING
     def age_check(self, min_age, max_age):
@@ -118,7 +80,6 @@ class TinderBot():
                     print("age chance-->Nope :" + str(self.age))
                     global reason
                     reason += f"age: {self.age} /"
-
                     return False
                 else:
                     print(f"she's {self.age} but got lucky")        
@@ -131,30 +92,8 @@ class TinderBot():
 
 # ADDING A RANDOM CHANCE THAT I WILL SWIPE LEFT
     def random_nope(self, x = 0):
-        return random.choices([False, True], [x/100, 1 - x/100])
+        return random.choices([False, True], [x/100, 1 - x/100])            
             
-            
-# #CHECK BIO FOR RED FLAGS
-#     def check_bio2(self):
-#         try:
-#             bio = self.driver.find_element('css selector', 'div[data-testid="info-bio"]').text
-#             for word in flags:
-#                 if word in bio.lower():
-#                     print("red flag: " + word)
-#                     return False
-#                 else:
-#                     continue
-#             print("no red flags")
-#             return True
-#         except Exception:
-#             like = random.choices([False, True], [.7, .3])
-#             if like:
-#                 print("No bio but ok")
-#                 return True
-#             else:
-#                 print("no bio, suspiscious")
-#                 return False
-
     def check_bio(self):
         ig = True
         global bio
@@ -194,10 +133,6 @@ class TinderBot():
                 reason += "no bio"
 
                 return False
-
-
-
-
 
 # CHECKING DISTANCE FOR PASSPORT USERS
     def check_km(self, km_lim):
@@ -275,11 +210,6 @@ class TinderBot():
         self.driver.find_element('css selector', 'button[data-testid="emoji-message-😉"]').click()
         print("Closed match")
         
-        # data-testid="chatTextarea" ----> try later
-        #  bot.driver.find_element('css selector', 'div[data-testid="chatTextarea"]').text
-
-        # self.driver.find_element('css selector','textarea').send_keys('hello')
-        # >>>
     def try_info_or_close2(self):
         try:
             self.open_info() #TRY TO OPEN THE  BIO 
@@ -310,8 +240,6 @@ class TinderBot():
 
     def try_info_or_close(self):
         try:
-            # self.driver.find_element_by_xpath('//*[@id="s1502865376"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div/div[3]/div[3]/button').click()
-            # print("mouseclick method")
             self.driver.find_element('css selector','body').send_keys(Keys.ARROW_UP)
             print("keyboard method")
 
@@ -322,7 +250,6 @@ class TinderBot():
                 self.open_info()
             except Exception:
                 try:
-                    # input()     #stops from closing match in order to
                     self.close_match() # TRY TO CLOSE MATCH
                     sleep(random.uniform(1.315, 1.846))
                     self.open_info()
@@ -345,10 +272,6 @@ class TinderBot():
 
     def close_first(self):
         try:
-            # self.driver.find_element('css selector', 'div[data-testid="chatTextarea"]').send_keys("Howdy! What's your absolute favorite drink?")
-            msg = self.driver.find_element('css selector','textarea')
-            msg.send_keys("Howdy! What's your absolute favorite drink?")
-            msg.submit()
             self.matches += 1
             sleep(random.uniform(1.315, 1.846))
             self.open_info()
@@ -370,8 +293,6 @@ class TinderBot():
 
                 except Exception:
                     self.open_info()
-
-
 
 ########## FULL PROFILE SWIPE AUTOMATIONS 
 
@@ -424,19 +345,13 @@ class TinderBot():
                     except Exception:
                         self.age = "No age"
                         print("missing age")
-                        # self.multi_close()
                         sleep(random.uniform(1.757, 2.534))
-                        # self.age = int(self.driver.find_element('css selector', 'span[data-testid="recCard__age"]').text)
-                        # self.name = self.driver.find_element('css selector', 'h1[data-testid="recCard__name"]').text
-                    # print(str(i) + "° profilo: " + self.name + str(self.age))
                     print(f"{i}° profile: {self.name} - {self.age}")
 
                     sleep(random.uniform(1.315, 3.846))
                     self.decision(km_lim, min_age, max_age)
                     profile_info = "________________________________________\n"
                     profile_info += f"{i}° profile: {self.name} - {self.age}: {swipe}\n{reason}\n"
-                    # profile_info += "-------------------------------------\n"
-                    # global reason
                     reason = ""
                     nope_percent = round((self.nope_count/(self.like_count+self.nope_count))*100, 2)
                     like_percent = round((self.like_count/(self.like_count+self.nope_count))*100, 2)
@@ -446,14 +361,11 @@ class TinderBot():
                     global likesEntry
                     likesEntry.delete(0, END)
                     likesEntry.insert(0, like_percent)
-
-                    # likesEntry = like_percent.get()
                     
                     global nopeEntry
                     nopeEntry.delete(0, END)
                     nopeEntry.insert(0, nope_percent)
 
-                    # nopeEntry = nope_percent.get()
                     bio = ""
 
                     sleep(random.uniform(1.757, 2.734))
@@ -572,21 +484,14 @@ bot = TinderBot()
 bot.login()
 bot.info()
 
+################# IMPORTING TKINTER FOR USER INTERFACE
 
 import tkinter as tk
 from tkinter import *
 from tkinter import END
 
-# import tkinter as tk
-# from tkinter import Button, Label, Entry, LabelFrame, END
-# import tkinter.ttk as ttk
-# from tkinter.ttk import * 
-
 root = tk.Tk()
 root.geometry('800x800')
-
-# root.style = ttk.Style()
-# root.style.theme_use("vista")
 
 inputFrame = LabelFrame(root, text="Fill in your data here")
 inputFrame.pack(padx=10, pady=10)
@@ -633,68 +538,30 @@ nopeEntry = Entry(statsFrame)
 nopeEntry.grid(row=5, column=1)
 nopeEntry.insert(0, "NONE")
 
-
-# nope = 0
-# nope.grid(row=6, column=1, columnspan=3, padx=10, pady=10)
-
-# scroll_bar = tk.Scrollbar(answerFrame)
- 
-# Pack the scroll bar
-# Place it to the right side, using tk.RIGHT
-# scroll_bar.pack
- 
-# Pack it into our tkinter application
-# Place the text widget to the left side
-# text_widget.pack(side=tk.LEFT)
-
-
-
 profile_info = ""
 reason = ""
 swipe = ""
-# Label(answerFrame, text=profile_info).grid(row=4, column=0)
-# profiles_label = Label(answerFrame, text=profile_info)
-# profiles_label.pack()
-
-# def introduction(name, age, country):
-#     s = f"Hello! My name is {name}, I'm {age} years old and I am from {country}!"
-#     myLabel4 = Label(answerFrame, text=s)
-#     myLabel4.pack()
-#     print(s)
-#     age.delete(0, END)
-
-
     
 def myClick():
     n = n_profiles.get()
     km = km_lim.get()
     min_a = min_age.get()
     max_a = max_age.get()
-    # s = f"Hello! My name is {n}, I'm {a} years old and I am from {c}!"
     
     bot.autoswipe(int(n), int(km), int(min_a), int(max_a))
-    # myLabel4 = Label(root, text=s)
-    # myLabel4.pack()
-    # name.delete(0, END)
 
 
 #THIS PRINTS PROFILES SWIPED AND OTHER INFO
 def print_results():
     global profile_info
-    # profiles_label = Label(answerFrame, text=profile_info)
-    # profiles_label.pack()
 
     answerFrame.insert("1.0", profile_info)
-
-    
 
 myButton = Button(buttonFrame, text="click me", padx=15, pady=15, command=myClick)
 myButton.pack()
 
-
 stopButton = Button(buttonFrame, text="STOP", padx=15, pady=15, command=bot.stop)
 stopButton.pack()
-
 
 
 root.mainloop()
